@@ -3,6 +3,8 @@ from selenium import webdriver
 import time
 import re
 import os
+import make_gif
+import multiprocessing
 
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
@@ -36,9 +38,12 @@ while True:
             print("地震終了")
             earthquake_now = False
             count = 0
+
+            p = multiprocessing.Process(target=make_gif, args=(save_dir))
+            p.start()
         else:
             count += 1
-            cz = {'0:05d'}.format(count)
+            cz = "{0:05d}".format(count)
             driver.save_screenshot(f"capture/{save_dir}/eq_{e_count}_{cz}.png")
 
     else:
@@ -48,13 +53,13 @@ while True:
 
             save_dir = re.sub(r"\D", "", message_time)
             print(f"save_dir:{save_dir}")
-            os.makedir(f"capture/{save_dir}")
+            os.makedirs(f"capture/{save_dir}", exist_ok=True)
 
             earthquake_now = True
 
             e_count += 1
             count = 1
-            cz = {'0:05d'}.format(count)
+            cz = "{0:05d}".format(count)
             driver.save_screenshot(f"capture/{save_dir}/eq_{e_count}_{cz}.png")
 
     time.sleep(1)

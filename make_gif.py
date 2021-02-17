@@ -4,17 +4,17 @@ from PIL import Image
 import glob
 import re
 import os
+import sys
 
-def cmp_seq(a, b):
-    ax = re.split('[_.]', a)
-    bx = re.split('[_.]', b)
-    print(ax)
-    print(bx)
-    return 0
+def make_gif(path):
+    files = sorted(glob.glob(f'capture/{path}/*.png'), key=os.path.getctime)
 
-files = sorted(glob.glob('capture/eq_1_*.png'), key=os.path.getctime)
-# files = glob.glob('capture/eq_1_*.png')
+    # print(files)
+    images = list(map(lambda file: Image.open(file).crop((0, 108, 365, 605)), files))
+    images[0].save(f"capture/{path}/{path}.gif", save_all=True, append_images=images[1:], duration=100, loop=0)
 
-print(files)
-# images = list(map(lambda file: Image.open(file), files))
-# images[0].save('eq1.gif', save_all=True, append_images=images[1:], duration=500, loop=0)
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        make_gif(sys.argv[1])
+    else:
+        print("You'll have to specify the directory.")
