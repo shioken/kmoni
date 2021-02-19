@@ -6,6 +6,7 @@ import re
 import os
 import make_gif
 import multiprocessing
+import glob
 
 
 e_count = 0
@@ -13,6 +14,7 @@ count = 0
 earthquake_now = False
 save_dir = ''
 driver = ""
+ring_index = 0
 
 def monitoring():
     global earthquake_now
@@ -20,6 +22,7 @@ def monitoring():
     global driver
     global save_dir
     global e_count
+    global ring_index
 
     message_time = driver.find_element_by_id('map-message-time').text
     message_num = driver.find_element_by_id('map-message-num').text
@@ -35,6 +38,11 @@ def monitoring():
             print("地震終了")
             earthquake_now = False
             count = 0
+
+            # clear ring buffer
+            for p in glob.glob("ring/*.png"):
+                os.remove(p)
+            ring_index = 0
 
             p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
             p.start()
@@ -58,6 +66,10 @@ def monitoring():
             count = 1
             cz = "{0:05d}".format(count)
             driver.save_screenshot(f"capture/{save_dir}/eq_{e_count}_{cz}.png")
+        else:
+            # Save Ring Buffer
+            driver.save_screenshot(f"ring/ring{ring_index}.png")
+            ring_index = (ring_index + 1) % 20
 
 
 
