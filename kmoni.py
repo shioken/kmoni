@@ -7,6 +7,7 @@ import os
 import make_gif
 import multiprocessing
 import glob
+import post
 
 
 e_count = 0
@@ -41,6 +42,9 @@ def monitoring():
 
             p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
             p.start()
+            p.join()
+            p1 = multiprocessing.Process(target=post.post, args=(save_dir,))
+            p1.start()
 
             # # clear ring buffer
             # for p in glob.glob("ring/*.png"):
