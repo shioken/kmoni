@@ -39,13 +39,14 @@ def monitoring():
             earthquake_now = False
             count = 0
 
-            # clear ring buffer
-            for p in glob.glob("ring/*.png"):
-                os.remove(p)
-            ring_index = 0
-
             p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
             p.start()
+
+            # # clear ring buffer
+            # for p in glob.glob("ring/*.png"):
+            #     os.remove(p)
+            # ring_index = 0
+
         else:
             count += 1
             cz = "{0:05d}".format(count)

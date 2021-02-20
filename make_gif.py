@@ -7,7 +7,7 @@ import os
 import sys
 
 def make_gif(path):
-    ring_files = sorted(glob.glob(f'ring/*.png'), key=os.path.getmtime)
+    ring_files = sorted(glob.glob('ring/*.png'), key=os.path.getmtime)
     print(f"ring files: {ring_files}")
     ring_images = list(map(lambda file: Image.open(file).crop((0, 108, 365, 605)), ring_files))
 
@@ -16,6 +16,8 @@ def make_gif(path):
 
     ring_images.extend(images)
     ring_images[0].save(f"capture/{path}/{path}.gif", save_all=True, append_images=ring_images[1:], duration=200, loop=1)
+
+    print("save gif: done")
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
