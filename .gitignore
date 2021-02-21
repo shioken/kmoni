@@ -3,3 +3,5 @@ capture
 __pycache__
 ring
 twitterapi.json
+chromedriver
+
