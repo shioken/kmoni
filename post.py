@@ -7,7 +7,7 @@ import os
 
 
 def post(path):
-    filename = f"capture/{path}/{path}.gif"
+    filename = f"{path}.mp4"
     keys = json.load(open('twitterapi.json', 'r'))
     api_key = keys["API_key"]
     api_key_secret = keys["API_key_secret"]

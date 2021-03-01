@@ -4,4 +4,4 @@ __pycache__
 ring
 twitterapi.json
 chromedriver
-
+*.mp4

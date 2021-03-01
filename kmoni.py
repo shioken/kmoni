@@ -5,6 +5,7 @@ import time, threading
 import re
 import os
 import make_gif
+import make_mp4
 import multiprocessing
 import glob
 import post
@@ -40,7 +41,7 @@ def monitoring():
             earthquake_now = False
             count = 0
 
-            p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
+            p = multiprocessing.Process(target=make_mp4.make_mp4, args=(save_dir,))
             p.start()
             p.join()
             p1 = multiprocessing.Process(target=post.post, args=(save_dir,))
