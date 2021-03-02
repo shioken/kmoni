@@ -1,7 +1,8 @@
 venv
-capture
 __pycache__
 ring
 twitterapi.json
 chromedriver
 *.mp4
+*.png
+*.gif

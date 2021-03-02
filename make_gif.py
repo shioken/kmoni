@@ -15,7 +15,7 @@ def make_gif(path):
     images = list(map(lambda file: Image.open(file).crop((0, 108, 365, 605)), files))
 
     ring_images.extend(images)
-    ring_images[0].save(f"capture/{path}/{path}.gif", save_all=True, append_images=ring_images[1:], duration=200, loop=1, optimize=True)
+    ring_images[0].save(f"output/{path}.gif", save_all=True, append_images=ring_images[1:], duration=200, loop=1, optimize=True)
 
     print("save gif: done")
 
