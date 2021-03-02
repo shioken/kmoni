@@ -25,7 +25,6 @@ def post(path):
     print(f"{y}年{m}月{d}日 {h}:{min}:{s}")
 
     t = Twitter(auth=OAuth(access_token, access_token_secret, api_key, api_key_secret))
-    # statusUpdate = t.statuses.update(status="Test from API")
     with open(filename, "rb") as imagefile:
         imagedata = imagefile.read()
     params = {"media[]": imagedata, "status": f"{y}年{m}月{d}日 {h}:{min}:{s} に発生した地震です。 データ: http://www.kmoni.bosai.go.jp/"}

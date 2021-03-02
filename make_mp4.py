@@ -22,7 +22,7 @@ def make_mp4(path):
         img_array.append(crop_image)
 
     outfile = f"{path}.mp4" # パス指定はできない
-    video = cv2.VideoWriter(outfile, cv2.VideoWriter_fourcc(*'mp4v'), 10.0, size)
+    video = cv2.VideoWriter(outfile, cv2.VideoWriter_fourcc(*'H264'), 10.0, size)
 
     for img in img_array:
         video.write(img)
