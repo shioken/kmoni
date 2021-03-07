@@ -44,7 +44,7 @@ def monitoring():
             p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
             p.start()
             p.join()
-            p1 = multiprocessing.Process(target=post.post, args=(save_dir,))
+            p1 = multiprocessing.Process(target=post.post, args=(save_dir, message_area))
             p1.start()
 
             # # clear ring buffer
