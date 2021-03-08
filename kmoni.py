@@ -17,6 +17,7 @@ earthquake_now = False
 save_dir = ''
 driver = ""
 ring_index = 0
+area = ""
 
 def monitoring():
     global earthquake_now
@@ -25,6 +26,7 @@ def monitoring():
     global save_dir
     global e_count
     global ring_index
+    global area
 
     message_time = driver.find_element_by_id('map-message-time').text
     message_num = driver.find_element_by_id('map-message-num').text
@@ -44,7 +46,7 @@ def monitoring():
             p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
             p.start()
             p.join()
-            p1 = multiprocessing.Process(target=post.post, args=(save_dir, message_area))
+            p1 = multiprocessing.Process(target=post.post, args=(save_dir, area))
             p1.start()
 
             # # clear ring buffer
@@ -59,8 +61,9 @@ def monitoring():
 
     else:
         if len(message_time) > 0:
-            print("地震発生")
             print(f"{message_time},{message_num}, {message_area}, {mag}, {depth}, {sindo}, {alert}")
+
+            area = message_area
 
             save_dir = re.sub(r"\D", "", message_time)
             print(f"save_dir:{save_dir}")
