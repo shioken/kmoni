@@ -70,7 +70,7 @@ def monitoring():
 
             area_value = message_area
             mag_value = mag
-            shindo_value = sindo
+            sindo_value = sindo
 
             save_dir = re.sub(r"\D", "", message_time)
             print(f"save_dir:{save_dir}")
