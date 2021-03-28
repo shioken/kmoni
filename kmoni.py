@@ -63,7 +63,9 @@ def monitoring():
             count += 1
             cz = "{0:05d}".format(count)
             driver.save_screenshot(f"capture/{save_dir}/eq_{e_count}_{cz}.png")
-
+            area_value = message_area
+            mag_value = mag
+            sindo_value = sindo
     else:
         if len(message_time) > 0:
             print(f"{message_time},{message_num}, {message_area}, {mag}, {depth}, {sindo}, {alert}")

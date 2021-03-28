@@ -7,6 +7,7 @@ import os
 
 
 def post(path, area, mag, sindo):
+    print(f"{path}, {area}, {mag}, {sindo}")
     filename = f"output/{path}.gif"
     keys = json.load(open('twitterapi.json', 'r'))
     api_key = keys["API_key"]
