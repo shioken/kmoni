@@ -47,13 +47,12 @@ def monitoring():
             earthquake_now = False
             count = 0
 
-            if sindo_value > 2:
-                p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
-                p.start()
-                p.join()
-                p1 = multiprocessing.Process(
-                    target=post.post, args=(save_dir, area_value, mag_value, sindo_value))
-                p1.start()
+            p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
+            p.start()
+            p.join()
+            p1 = multiprocessing.Process(
+                target=post.post, args=(save_dir, area_value, mag_value, sindo_value))
+            p1.start()
 
             # # clear ring buffer
             # for p in glob.glob("ring/*.png"):
