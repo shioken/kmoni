@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import json
-# from twitter import Twitter, OAuth
 import tweepy
 import sys
 import os
@@ -32,14 +31,13 @@ def post(path, area, mag, sindo):
     auth.set_access_token(access_token, access_token_secret)
 
     api = tweepy.API(auth)
-    api.update_with_media(
-        status=f"{y}年{m}月{d}日 {h}:{min}:{s} に{area}で発生した地震(マグニチュード{mag}, 震度{sindo})です。 強震モニタ: http://www.kmoni.bosai.go.jp/", filename=filename)
 
-    # t = Twitter(auth=OAuth(access_token, access_token_secret, api_key, api_key_secret))
-    # with open(filename, "rb") as imagefile:
-    #     imagedata = imagefile.read()
-    # params = {"media[]": imagedata, "status": f"{y}年{m}月{d}日 {h}:{min}:{s} に{area}で発生した地震(マグニチュード{mag}, 震度{sindo})です。 強震モニタ: http://www.kmoni.bosai.go.jp/"}
-    # t.statuses.update_with_media(**params)
+    media_ids = []
+    res = api.media_upload(filename)
+    media_ids.append(res.media_id)
+    
+    api.update_status(
+        status=f"{y}年{m}月{d}日 {h}:{min}:{s} に{area}で発生した地震(マグニチュード{mag}, 震度{sindo})です。 強震モニタ: http://www.kmoni.bosai.go.jp/", media_ids=media_ids)
 
 if __name__ == '__main__':
     if len(sys.argv) > 3:
