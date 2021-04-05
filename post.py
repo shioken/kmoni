@@ -4,11 +4,13 @@ import json
 import tweepy
 import sys
 import os
+import subprocess
 
 
 def post(path, area, mag, sindo):
     print(f"{path}, {area}, {mag}, {sindo}")
     filename = f"output/{path}.gif"
+
     keys = json.load(open('twitterapi.json', 'r'))
     api_key = keys["API_key"]
     api_key_secret = keys["API_key_secret"]
@@ -16,15 +18,13 @@ def post(path, area, mag, sindo):
     access_token = keys["Access_token"]
     access_token_secret = keys["Access_token_secret"]
 
-    fd = os.path.basename(filename).split('.')[0]
-    y = fd[0:4]
-    m = fd[4:6]
-    d = fd[6:8]
-    h = fd[8:10]
-    min = fd[10:12]
-    s = fd[12:14]
+    y = path[0:4]
+    m = path[4:6]
+    d = path[6:8]
+    h = path[8:10]
+    min = path[10:12]
+    s = path[12:14]
     print(f"{y}年{m}月{d}日 {h}:{min}:{s}")
-
 
     # Twitterオブジェクトの生成
     auth = tweepy.OAuthHandler(api_key, api_key_secret)
