@@ -18,6 +18,7 @@ earthquake_now = False
 save_dir = ''
 driver = ""
 ring_index = 0
+time_value = ""
 area_value = ""
 mag_value = ""
 sindo_value = ""
@@ -29,6 +30,7 @@ def monitoring():
     global save_dir
     global e_count
     global ring_index
+    global time_value
     global area_value
     global mag_value
     global sindo_value
@@ -49,7 +51,7 @@ def monitoring():
             count = 0
 
             info = {
-                "time": message_time,
+                "time": time_value,
                 "area": area_value,
                 "mag": mag_value,
                 "sindo": sindo_value
@@ -83,6 +85,7 @@ def monitoring():
         if len(message_time) > 0:
             print(f"{message_time},{message_num}, {message_area}, {mag}, {depth}, {sindo}, {alert}")
 
+            time_value = message_time
             area_value = message_area
             mag_value = mag
             sindo_value = sindo
