@@ -34,6 +34,7 @@ def post(path, area, mag, sindo):
 
     media_ids = []
     res = api.media_upload(filename)
+    print(f"media_id:{res.media_id}")
     media_ids.append(res.media_id)
     
     api.update_status(

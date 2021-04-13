@@ -9,6 +9,7 @@ import make_mp4
 import multiprocessing
 import glob
 import post
+import json
 
 
 e_count = 0
@@ -47,9 +48,21 @@ def monitoring():
             earthquake_now = False
             count = 0
 
+            info = {
+                "time": message_time,
+                "area": area_value,
+                "mag": mag_value,
+                "sindo": sindo_value
+            }
+
+
+            with open(f'output/{save_dir}.json', mode='wt', encoding='utf-8') as file:
+                json.dump(info, file, ensure_ascii=False, indent=4)
+
             p = multiprocessing.Process(target=make_gif.make_gif, args=(save_dir,))
             p.start()
             p.join()
+
             p1 = multiprocessing.Process(
                 target=post.post, args=(save_dir, area_value, mag_value, sindo_value))
             p1.start()
